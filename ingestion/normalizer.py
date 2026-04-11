@@ -1,4 +1,3 @@
-
 import json
 from gps_parser       import parse_gps
 from address_geocoder import geocode_address
@@ -33,7 +32,6 @@ def normalize_signals(signals: list) -> list:
 # ── Router ────────────────────────────────────────────────────────────────────
 
 def _parse_one(signal_type: str, data: str) -> dict:
-
     if signal_type == "GPS":
         return parse_gps(data)
 

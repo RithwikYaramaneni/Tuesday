@@ -1,13 +1,13 @@
-
 import uuid
 import os
 import requests
 from datetime import datetime, timezone
 
 
+
 # ── Main function ─────────────────────────────────────────────────────────────
 
-
+def geocode_address(address: str) -> dict:
     google_key = os.getenv("GOOGLE_GEO_KEY")
     opencage_key = os.getenv("OPENCAGE_KEY")
 
@@ -52,9 +52,10 @@ from datetime import datetime, timezone
 
     return location_point
 
+
 # ── Provider functions ────────────────────────────────────────────────────────
 
-    """
+def _google_geocode(address: str, api_key: str):
     url = "https://maps.googleapis.com/maps/api/geocode/json"
     params = {"address": address, "key": api_key}
 
@@ -78,7 +79,7 @@ from datetime import datetime, timezone
         return None, None, None
 
 
-    """
+def _opencage_geocode(address: str, api_key: str):
     url = "https://api.opencagedata.com/geocode/v1/json"
     params = {"q": address, "key": api_key, "limit": 1, "no_annotations": 1}
 
@@ -100,6 +101,7 @@ from datetime import datetime, timezone
     except requests.RequestException as e:
         print(f"  [OpenCage] Request failed: {e}")
         return None, None, None
+
 
 # ── Quick test ────────────────────────────────────────────────────────────────
 

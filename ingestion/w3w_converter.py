@@ -8,7 +8,6 @@ from datetime import datetime, timezone
 # ── Main function ─────────────────────────────────────────────────────────────
 
 def convert_w3w(w3w_address: str) -> dict:
-
     api_key = os.getenv("W3W_KEY")
     if not api_key:
         raise EnvironmentError(
@@ -57,10 +56,6 @@ def convert_w3w(w3w_address: str) -> dict:
 # ── API call ──────────────────────────────────────────────────────────────────
 
 def _call_w3w_api(words: str, api_key: str):
-    """
-    Calls the What3Words /convert-to-coordinates endpoint.
-    Returns (latitude, longitude).
-    """
     url = "https://api.what3words.com/v3/convert-to-coordinates"
     params = {
         "words":  words,
@@ -91,10 +86,6 @@ def _call_w3w_api(words: str, api_key: str):
 # ── Helper functions ──────────────────────────────────────────────────────────
 
 def _clean_w3w(raw: str) -> str:
-    """
-    Strips leading slashes, whitespace, and lowercases the input.
-    '///Fills.Snap.Brave' → 'fills.snap.brave'
-    """
     return raw.strip().lstrip("/").lower()
 
 

@@ -1,9 +1,24 @@
+"""
+gps_parser.py — Person A: Data Ingestion & Normalization
+Parses raw GPS NMEA $GPGGA sentences into a LocationPoint dict.
+
+Install dependency:
+    pip install pynmea2
+"""
+
 import pynmea2
 import uuid
 from datetime import datetime, timezone
 
 
 def parse_gps(nmea_sentence: str) -> dict:
+    """
+    Takes a raw NMEA $GPGGA sentence string.
+    Returns a LocationPoint dict ready for normalization.
+
+    Example input:
+        "$GPGGA,092311,1304.96,N,08016.24,E,1,07,1.2,14.5,M,,,,"
+    """
 
     try:
         msg = pynmea2.parse(nmea_sentence.strip())
@@ -100,6 +115,10 @@ def _estimate_accuracy(hdop, satellite_count) -> float:
 
 
 def _estimate_confidence(hdop, satellite_count) -> float:
+    """
+    Estimate raw confidence between 0.0 and 1.0.
+    Default GPS confidence is 0.9. Lower if signal is weak.
+    """
     confidence = 0.9
 
     if hdop is not None:
