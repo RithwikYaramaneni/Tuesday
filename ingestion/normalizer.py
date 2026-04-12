@@ -1,7 +1,7 @@
 import json
 from gps_parser       import parse_gps
 from address_geocoder import geocode_address
-from w3w_converter    import convert_w3w
+from plus_code_converter import convert_plus_code
 
 
 # ── Main entry point ──────────────────────────────────────────────────────────
@@ -36,7 +36,7 @@ def _parse_one(signal_type: str, data: str) -> dict:
         return parse_gps(data)
 
     elif signal_type == "W3W":
-        return convert_w3w(data)
+        return convert_plus_code(data)
 
     elif signal_type == "ADDRESS":
         return geocode_address(data)
@@ -153,7 +153,7 @@ if __name__ == "__main__":
         },
         {
             "type": "W3W",
-            "data": "///fills.snap.brave"
+            "data": "7J4VQJJ3+MH"
         },
         {
             "type": "ADDRESS",
