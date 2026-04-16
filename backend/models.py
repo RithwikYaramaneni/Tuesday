@@ -19,7 +19,7 @@ class LocationPoint(BaseModel):
     raw_confidence: float
     hdop: Optional[float] = None
     satellite_count: Optional[int] = None
-    signal_strength_dbm: Optional[float] = None
+    signal_strength_dbm: Optional[int] = None
     is_indoor: Optional[bool] = None
     floor_estimate: Optional[int] = None
     environment_mode: Optional[EnvMode] = "NORMAL"
