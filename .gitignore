@@ -1,4 +1,22 @@
-__pycache__/
-*.pyc
+# Python Virtual Environments
+backend/venv/
 venv/
+env/
+
+# Python Cache (unnecessary machine-compiled files)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Frontend Node Modules (For Person D later)
+node_modules/
+dist/
+build/
+
+# Environment Variables (Never commit API Keys!)
 .env
+.env.local
+
+# IDE configurations
+.vscode/
+.idea/

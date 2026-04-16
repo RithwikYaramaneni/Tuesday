@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import Optional, List, Literal
-from datetime import datetime
 import uuid
 
 SourceType = Literal["GPS", "CELL", "W3W", "ADDRESS", "LANDMARK", "WIFI"]
@@ -20,7 +19,7 @@ class LocationPoint(BaseModel):
     raw_confidence: float
     hdop: Optional[float] = None
     satellite_count: Optional[int] = None
-    signal_strength_dbm: Optional[int] = None
+    signal_strength_dbm: Optional[float] = None
     is_indoor: Optional[bool] = None
     floor_estimate: Optional[int] = None
     environment_mode: Optional[EnvMode] = "NORMAL"
@@ -29,16 +28,18 @@ class LocationPoint(BaseModel):
 
 
 class FusedLocation(BaseModel):
-    fused_lat: float
-    fused_lon: float
+    fused_lat: Optional[float] = None
+    fused_lon: Optional[float] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     confidence_score: float
-    uncertainty_radius_m: float
-    dispatch_status: DispatchStatus
+    uncertainty_radius_m: Optional[float] = None
+    dispatch_status: Optional[DispatchStatus] = None
     sources_used: List[str]
     sources_ignored: List[str]
     explanation: str
     followup_question: Optional[str] = None
-    input_signals: List[LocationPoint]
+    input_signals: Optional[List[LocationPoint]] = None
 
 
 class LocateRequest(BaseModel):

@@ -327,6 +327,15 @@ def locate(request: LocateRequest):
         # ==================================================================
         fused: FusedLocation = fuse(location_points)
 
+        if fused.fused_lat is None and fused.latitude is not None:
+            fused.fused_lat = fused.latitude
+        if fused.fused_lon is None and fused.longitude is not None:
+            fused.fused_lon = fused.longitude
+        if fused.latitude is None and fused.fused_lat is not None:
+            fused.latitude = fused.fused_lat
+        if fused.longitude is None and fused.fused_lon is not None:
+            fused.longitude = fused.fused_lon
+
         # ==================================================================
         # Step 5 — Override dispatch_status using Person C's dispatch logic
         # ==================================================================
