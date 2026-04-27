@@ -1,42 +1,73 @@
-# Geofuse
+# React + TypeScript + Vite
 
-## Project Structure
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-```text
-geofuse/
-├── backend/
-│   ├── ingestion/
-│   │   ├── gps_parser.py          ← yours ✅
-│   │   ├── address_geocoder.py    ← yours ✅
-│   │   ├── plus_code_converter.py ← yours ✅
-│   │   └── normalizer.py          ← yours ✅
-│   ├── fusion/
-│   │   ├── fuser.py               ← Person B ✅
-│   │   ├── outlier_detector.py    ← Person B ✅
-│   │   └── weighter.py            ← Person B ✅
-│   ├── risk/
-│   │   ├── __init__.py            ← Person C ✅
-│   │   ├── dispatch_status.py     ← Person C ✅
-│   │   └── environment.py         ← Person C ✅
-│   ├── main.py                    ← Person C ✅
-│   ├── models.py                  ← shared ✅
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── src/
-│   │   ├── api/
-│   │   │   └── locate.ts          ← Person D ✅
-│   │   ├── components/
-│   │   │   ├── InputForm.tsx      ← Person D ✅
-│   │   │   ├── MapView.tsx        ← Person D ✅
-│   │   │   ├── StatusBanner.tsx   ← Person D ✅
-│   │   │   └── XDPanel.tsx        ← Person D ✅
-│   │   ├── App.tsx                ← Person D ✅
-│   │   ├── App.css
-│   │   ├── main.tsx
-│   │   ├── mockResponse.ts
-│   │   └── types.ts
-│   └── index.html
-│
-└── README.md
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
